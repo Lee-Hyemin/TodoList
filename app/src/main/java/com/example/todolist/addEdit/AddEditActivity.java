@@ -67,7 +67,7 @@ public class AddEditActivity extends AppCompatActivity {
 
         if(mode == 1){
             //TODO: edit
-            id = selectItem.getId();
+            id = getIntent().getIntExtra("item_id", -1);
 
             if(id == -1){
                 Log.d("todo_id", "item id wrong");
@@ -75,7 +75,7 @@ public class AddEditActivity extends AppCompatActivity {
             } else {
                 MyDatabase myDatabase = MyDatabase.getInstance(AddEditActivity.this);
                 try {
-                  selectItem = myDatabase.todoDao().getTodo(id);
+                  selectItem = myDatabase.todoDao().getTodo(getIntent().getIntExtra("item_id", -1));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
