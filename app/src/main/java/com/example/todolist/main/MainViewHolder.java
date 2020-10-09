@@ -30,7 +30,7 @@ public class MainViewHolder extends RecyclerView.ViewHolder {
         todo_tv_title = itemView.findViewById(R.id.todo_title);
         todo_cb = itemView.findViewById(R.id.todo_cb);
         todo_tv_due = itemView.findViewById(R.id.todo_due_date);
-        todo_tv_left = itemView.findViewById(R.id.todo_left);
+        todo_tv_left = itemView.findViewById(R.id.todo_tv_left);
 
     }
 
@@ -45,25 +45,25 @@ public class MainViewHolder extends RecyclerView.ViewHolder {
             todo_tv_title.setText(contentSp);
         }
 
-        //left
+        //날짜 계산
         Calendar cal = Calendar.getInstance();
         int mYear = cal.get(Calendar.YEAR);
-        int mMonth = cal.get(Calendar.MONTH);
+        int mMonth = cal.get(Calendar.MONTH) + 1;
         int mDay = cal.get(Calendar.DAY_OF_MONTH);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy / MM / dd");
 
         Date dDate = simpleDateFormat.parse(item.getDue());
         Date today = simpleDateFormat.parse(mYear + " / " + mMonth + "/" + mDay);
-        Long left = -(dDate.getTime() - today.getTime() / (24*60*1000));
+        Long left = -(dDate.getTime() - today.getTime()) / (24 * 60 * 60 * 1000);
 
         if(left.intValue() < 0){
-            todo_tv_left.setText("D" + left);
+            todo_tv_left.setText("D-" + left.toString());
         } else if (left.intValue() == 0){
             todo_tv_left.setText("D-Day");
             todo_tv_left.setTextColor(Color.RED);
         } else {
-            todo_tv_left.setText("D+" + left);
+            todo_tv_left.setText("D+" + left.toString());
             todo_tv_left.setTextColor(Color.RED);
         }
     }

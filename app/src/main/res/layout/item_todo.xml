@@ -34,12 +34,12 @@
         android:layout_height="wrap_content"
         android:text="dueDate"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/todo_left"
+        app:layout_constraintEnd_toStartOf="@+id/todo_tv_left"
         app:layout_constraintStart_toEndOf="@+id/todo_title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/todo_left"
+        android:id="@+id/todo_tv_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

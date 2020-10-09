@@ -44,7 +44,6 @@ public class AddEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit);
 
-        //TODO: (과제) 모드를 가져오기
         mode = getIntent().getIntExtra("mode", -1);
 
         ActionBar actionBar = getSupportActionBar();
@@ -66,9 +65,9 @@ public class AddEditActivity extends AppCompatActivity {
         ib_dDate = findViewById(R.id.addEdit_ibtn_due);
 
         if(mode == 1){
-            //TODO: edit
             id = getIntent().getIntExtra("item_id", -1);
 
+            //TODO: 과제 ID 가져오기
             if(id == -1){
                 Log.d("todo_id", "item id wrong");
                 Toast.makeText(AddEditActivity.this, "item id wrong", Toast.LENGTH_SHORT).show();
@@ -112,9 +111,9 @@ public class AddEditActivity extends AppCompatActivity {
         new DatePickerDialog(AddEditActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                String s_month = new Integer(month).toString();
+                String s_month = new Integer(month + 1).toString();
                 String s_date = new Integer(dayOfMonth).toString();
-                if(month < 10){
+                if(month + 1 < 10){
                     s_month = "0" + new Integer(month + 1).toString();
                 }
                 if(dayOfMonth < 10){
@@ -152,22 +151,23 @@ public class AddEditActivity extends AppCompatActivity {
                     til_sDate.setError("필수 요소 입니다!");
                 else
                     til_sDate.setError(null);
-                 if(dDate.equals(""))
+                if(dDate.equals(""))
                     til_dDate.setError("필수 요소 입니다!");
                 else
                     til_dDate.setError(null);
 
                 if(!title.equals("") && !sDate.equals("") && !dDate.equals("")){
                     if(sDate.compareTo(dDate) > 0){
-                        til_sDate.setError("시작 날짜가 더 빠릅니다.");
-                        til_dDate.setError("끝나는 날짜가 더 느립니다.");
+                        til_sDate.setError("시작 날짜가 더 느립니다.");
+                        til_dDate.setError("끝나는 날짜가 더 빠릅니다.");
                     } else {
                         MyDatabase myDatabase = MyDatabase.getInstance(AddEditActivity.this);
 
                         if(mode == 0){
                             //추가
                             TodoItem todoItem = new TodoItem(title, sDate, dDate, memo);
-                            myDatabase.todoDao().InsertTodo(todoItem);
+                            myDatabase.todoDao().insertTodo(todoItem);
+                            finish(); //SELF 수정
                         } else if (mode == 1){
                             //수정
 
